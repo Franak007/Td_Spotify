@@ -29,11 +29,7 @@
             {% for artist in music.artists %}
                 <tr>
                     <th>Name</th>
-                    <td>{{ artist.lastName }}</td>
-                </tr>
-                <tr>
-                    <th>First Name</th>
-                    <td>{{ artist.firstName }}</td>
+                    <td><a href="{{ path('app_artist_index') }} {{ artist.id }}">{{ artist.firstName }} {{ artist.lastName }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

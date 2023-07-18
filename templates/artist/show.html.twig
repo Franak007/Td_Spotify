@@ -25,15 +25,12 @@
     <h2 class="text-center">Titres de l'artiste</h2>
 
     <table class="table">
+        <h5>Number of songs of this artist in our application : {{ artist.musics | length }}</h5>
         <tbody>
         {% for music in artist.musics %}
                 <tr>
                     <th>Title</th>
-                    <td>{{ music.title }}</td>
-                </tr>
-                <tr>
-                    <th>Release Date</th>
-                    <td>{{ music.releaseDate | date }}</td>
+                    <td><a href="{{ path('app_music_index') }} {{ music.id }}">{{ music.title }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>
