@@ -3,7 +3,7 @@
 {% block title %}Artist{% endblock %}
 
 {% block body %}
-    <h1>Artist</h1>
+    <h1 class="text-center">Artiste</h1>
 
     <table class="table">
         <tbody>
@@ -19,7 +19,14 @@
                 <th>LastName</th>
                 <td>{{ artist.lastName }}</td>
             </tr>
-            {% for music in artist.musics %}
+        </tbody>
+    </table>
+
+    <h2 class="text-center">Titres de l'artiste</h2>
+
+    <table class="table">
+        <tbody>
+        {% for music in artist.musics %}
                 <tr>
                     <th>Title</th>
                     <td>{{ music.title }}</td>
