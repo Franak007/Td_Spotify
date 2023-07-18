@@ -19,6 +19,16 @@
                 <th>ReleaseDate</th>
                 <td>{{ music.releaseDate ? music.releaseDate|date('Y-m-d') : '' }}</td>
             </tr>
+            {% for artist in music.artists %}
+                <tr>
+                    <th>Name</th>
+                    <td>{{ artist.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>First Name</th>
+                    <td>{{ artist.firstName }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

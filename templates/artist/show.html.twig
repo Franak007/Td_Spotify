@@ -19,6 +19,16 @@
                 <th>LastName</th>
                 <td>{{ artist.lastName }}</td>
             </tr>
+            {% for music in artist.musics %}
+                <tr>
+                    <th>Title</th>
+                    <td>{{ music.title }}</td>
+                </tr>
+                <tr>
+                    <th>Release Date</th>
+                    <td>{{ music.releaseDate | date }}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
