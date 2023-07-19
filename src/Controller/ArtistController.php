@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +22,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ArtistRepository $artistRepository): Response
     {
@@ -48,6 +50,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'app_artist_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {
@@ -66,6 +69,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}', name: 'app_artist_delete', methods: ['POST'])]
     public function delete(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
     {

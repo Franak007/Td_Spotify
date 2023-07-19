@@ -22,7 +22,9 @@
                 <td>{{ music.releaseDate ? music.releaseDate|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('app_music_show', {'id': music.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_music_edit', {'id': music.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -33,5 +35,7 @@
         </tbody>
     </table>
 
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_music_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
