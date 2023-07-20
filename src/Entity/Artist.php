@@ -24,6 +24,9 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Music::class, mappedBy: 'artists')]
     private Collection $musics;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photo = null;
+
     public function __construct()
     {
         $this->musics = new ArrayCollection();
@@ -89,6 +92,18 @@ class Artist
     {
         // TODO: Implement __toString() method.
         return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): static
+    {
+        $this->photo = $photo;
+
+        return $this;
     }
 
 

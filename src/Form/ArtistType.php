@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Artist;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ArtistType extends AbstractType
 {
@@ -15,6 +17,20 @@ class ArtistType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('musics')
+            ->add('photo', FileType::class, [
+                'label' => "Photo de l'artiste",
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '8000k',
+                        'mimeTypes' => [
+                            'image/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid Photo',
+                    ])
+                ],
+            ])
         ;
     }
 
