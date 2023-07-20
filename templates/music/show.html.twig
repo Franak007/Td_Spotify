@@ -19,6 +19,14 @@
                 <th>ReleaseDate</th>
                 <td>{{ music.releaseDate ? music.releaseDate|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Cover</th>
+            {% if  music.cover %}
+                <td><img src="{{ asset('uploads/images/' ~ music.cover) }}"></td>
+            {% else %}
+                <td><img src="{{ asset('uploads/images/spotify.png') }}"></td>
+            {% endif %}
+            </tr>
         </tbody>
     </table>
 

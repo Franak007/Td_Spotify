@@ -19,6 +19,14 @@
                 <th>LastName</th>
                 <td>{{ artist.lastName }}</td>
             </tr>
+            <tr>
+                <th>Album</th>
+                {% if  artist.photo %}
+                    <td><img src="{{ asset('uploads/images/' ~ artist.photo) }}"></td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/images/spotify.png') }}"></td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 
