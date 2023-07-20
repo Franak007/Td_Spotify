@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Artist;
 use App\Form\ArtistType;
 use App\Repository\ArtistRepository;
+use App\Service\FileUploader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,13 +25,18 @@ class ArtistController extends AbstractController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'app_artist_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArtistRepository $artistRepository): Response
+    public function new(Request $request, ArtistRepository $artistRepository, FileUploader $fileUploader): Response
     {
         $artist = new Artist();
         $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $photoFile = $form->get('photo')->getData();
+            if ($photoFile) {
+                $photoFileName = $fileUploader->upload($photoFile);
+                $artist->setPhoto($photoFileName);
+            }
             $artistRepository->save($artist, true);
 
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
@@ -52,12 +58,17 @@ class ArtistController extends AbstractController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'app_artist_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository): Response
+    public function edit(Request $request, Artist $artist, ArtistRepository $artistRepository, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(ArtistType::class, $artist);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $photoFile = $form->get('photo')->getData();
+            if ($photoFile) {
+                $photoFileName = $fileUploader->upload($photoFile);
+                $artist->setPhoto($photoFileName);
+            }
             $artistRepository->save($artist, true);
 
             return $this->redirectToRoute('app_artist_index', [], Response::HTTP_SEE_OTHER);
